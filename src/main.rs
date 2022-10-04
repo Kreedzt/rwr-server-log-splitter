@@ -3,7 +3,6 @@ extern crate notify;
 use notify::{Watcher, RecursiveMode, watcher};
 use chrono::prelude::*;
 use std::io::{Read, Seek};
-use std::os::windows::prelude::MetadataExt;
 use std::sync::mpsc::channel;
 use std::time::Duration;
 use std::fs::{self, File};
