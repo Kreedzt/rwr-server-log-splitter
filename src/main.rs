@@ -34,7 +34,6 @@ fn main() {
                 let local = Local::now();
                 let current_time = local.format("%Y-%m-%d-%H-%M-%S").to_string();
                 println!("===WatchEvent: {}===", current_time);
-                let local = Local::now();
 
                 println!("Event: {:?}", event);
 
@@ -51,10 +50,7 @@ fn main() {
 
                 println!("{:?}", meta);
 
-                let current_file_size = meta.file_size();
-
-                println!("File size: {}", current_file_size);
-
+                let current_file_size = meta.len();
 
                 // 若与上次相同, 终止后续操作
                 if prev_file_size == current_file_size {
@@ -70,10 +66,6 @@ fn main() {
                 content.read_to_string(&mut res_string).unwrap();
 
                 // Get next seek start
-                let bytes = content.bytes();
-
-                let count = bytes.count();
-
                 next_seek_start = meta.len();
 
                 // Write to new file
