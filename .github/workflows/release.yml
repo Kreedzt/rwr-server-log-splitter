@@ -17,52 +17,52 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: x86_64-unknown-linux-musl
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: aarch64-unknown-linux-musl
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: arm-unknown-linux-musleabi
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: arm-unknown-linux-musleabihf
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: armv7-unknown-linux-musleabihf
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: mips-unknown-linux-gnu
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: mips-unknown-linux-musl
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: mipsel-unknown-linux-gnu
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: mipsel-unknown-linux-musl
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: mips64-unknown-linux-gnuabi64
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
           - os: ubuntu-latest
             target: mips64el-unknown-linux-gnuabi64
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
 
           - os: macos-latest
             target: x86_64-apple-darwin
-            exe: rwr-profile-server
+            exe: rwr-server-log-splitter
 
           - os: ubuntu-latest
             target: x86_64-pc-windows-gnu
-            exe: rwr-profile-server.exe
+            exe: rwr-server-log-splitter.exe
 
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            exe: rwr-profile-server.exe
+            exe: rwr-server-log-splitter.exe
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -87,20 +87,20 @@ jobs:
           args: -q --best --lzma
       - uses: actions/upload-artifact@v2
         with:
-          name: rwr-profile-server-${{ matrix.target }}
+          name: rwr-server-log-splitter-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/${{ matrix.exe }}
       - name: Zip Release
         uses: TheDoctor0/zip-release@0.6.1
         with:
           type: zip
-          filename: rwr-profile-server-${{ matrix.target }}.zip
+          filename: rwr-server-log-splitter-${{ matrix.target }}.zip
           directory: target/${{ matrix.target }}/release/
           path: ${{ matrix.exe }}
       - name: Publish
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: target/${{ matrix.target }}/release/rwr-profile-server-${{ matrix.target }}.zip
+          files: target/${{ matrix.target }}/release/rwr-server-log-splitter-${{ matrix.target }}.zip
           generate_release_notes: true
           draft: true
   # docker:
@@ -121,7 +121,7 @@ jobs:
   #       uses: docker/build-push-action@v3
   #       with:
   #         push: true
-  #         tags: zhaozisong0/rwr-profile-server:latest, zhaozisong0/rwr-profile-server:${{ github.ref_name }}
+  #         tags: zhaozisong0/rwr-server-log-splitter:latest, zhaozisong0/rwr-server-log-splitter:${{ github.ref_name }}
 
   # publish-crate:
   #   name: Publish to crates.io
